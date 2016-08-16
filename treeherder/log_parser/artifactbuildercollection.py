@@ -91,8 +91,7 @@ BuildbotPerformanceDataArtifactBuilder
             headers={'user-agent': settings.TREEHERDER_USER_AGENT},
             timeout=settings.REQUESTS_TIMEOUT
         )
-        # size_in_mb = int(req.headers["content-length"]) / 1000000
-        size_in_mb = int(req.headers["content-length"])
+        size_in_mb = int(req.headers["content-length"]) / 1000000
         if size_in_mb > settings.MAX_LOG_SIZE:
             raise LogTooLargeException(
                 "Log too large to parse: {}MB, Max: {}MB".format(
