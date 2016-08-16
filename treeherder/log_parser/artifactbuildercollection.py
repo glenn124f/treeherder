@@ -1,4 +1,6 @@
 import requests
+from requests_file import FileAdapter
+
 from contextlib import closing
 
 from django.conf import settings
@@ -85,7 +87,10 @@ BuildbotPerformanceDataArtifactBuilder
         Stream lines from the gzip file and run each parser against it,
         building the ``artifact`` as we go.
         """
-        req = requests.get(
+        s = requests.Session()
+        s.mount('file://', FileAdapter())
+
+        req = s.get(
             self.url,
             stream=True,
             headers={'user-agent': settings.TREEHERDER_USER_AGENT},
