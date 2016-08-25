@@ -1,9 +1,9 @@
 'use strict';
 
-var exclusionEditorApp = angular.module('exclusioneditor',
+var hideherderApp = angular.module('hideherder',
     ['ui.router', 'ui.bootstrap', 'treeherder', 'angular-clipboard']);
 
-exclusionEditorApp.config(function($compileProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+hideherderApp.config(function($compileProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
     // Disable debug data, as recommended by https://docs.angularjs.org/guide/production
     $compileProvider.debugInfoEnabled(false);
 
@@ -13,14 +13,14 @@ exclusionEditorApp.config(function($compileProvider, $httpProvider, $stateProvid
 
     $stateProvider.state('profiles', {
         title: 'Profiles',
-        templateUrl: 'partials/exclusion/profiles.html',
+        templateUrl: 'hideherder/profiles.html',
         url: '/profiles',
-        controller: 'ExclusionEditorCtrl'
+        controller: 'HideEditorCtrl'
     }).state('exclusions', {
         title: 'Exclusions',
-        templateUrl: 'partials/exclusion/exclusions.html',
+        templateUrl: 'hideherder/exclusions.html',
         url: '/exclusions',
-        controller: 'ExclusionEditorCtrl'
+        controller: 'HideEditorCtrl'
     });
 
     $urlRouterProvider.otherwise('/profiles');

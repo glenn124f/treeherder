@@ -1,9 +1,9 @@
 'use strict';
-exclusionEditorApp.controller('ExclusionEditorCtrl', [
+hideherderApp.controller('HideEditorCtrl', [
     '$scope', '$rootScope', 'ThBuildPlatformModel', 'ThJobTypeModel',
     'thEvents', 'ThRepositoryModel', 'ThOptionCollectionModel',
     'ThJobExclusionModel', 'ThExclusionProfileModel', 'thNotify', '$q',
-    function ExclusionEditorCtrl(
+    function HideEditorCtrl(
         $scope, $rootScope, ThBuildPlatformModel, ThJobTypeModel, thEvents,
         ThRepositoryModel, ThOptionCollectionModel,
         ThJobExclusionModel, ThExclusionProfileModel, thNotify, $q) {
@@ -13,29 +13,20 @@ exclusionEditorApp.controller('ExclusionEditorCtrl', [
         $scope.profiles = [];
 
         // load the values needed for this page.
-        // this won't be needed all that often, so we should
-        // only load it on-demand.
-        var init = function() {
-            // only load once, otherwise rely on refreshing
-            if (!$scope.initComplete) {
-                ThJobExclusionModel.get_list().then(function (data) {
-                    $scope.exclusions = data;
-                    $scope.exclusions_map = _.indexBy($scope.exclusions, 'id');
-                });
-                ThExclusionProfileModel.get_list({}, false).then(function (data) {
-                    $scope.profiles = _.map(data, function(profile) {
-                        profile.showExcludedUrl = $scope.urlBasePath +
-                                                  "?repo=" + $scope.repoName +
-                                                  "&exclusion_profile=" + profile.name +
-                                                  "&visibility=excluded";
-                        return profile;
-                    });
-                });
-                $scope.initComplete = true;
-            }
-        };
-
-        init();
+        // only load once, otherwise rely on refreshing
+        ThJobExclusionModel.get_list().then(function (data) {
+            $scope.exclusions = data;
+            $scope.exclusions_map = _.indexBy($scope.exclusions, 'id');
+        });
+        ThExclusionProfileModel.get_list({}, false).then(function (data) {
+            $scope.profiles = _.map(data, function(profile) {
+                profile.showExcludedUrl = $scope.urlBasePath +
+                                          "?repo=" + $scope.repoName +
+                                          "&exclusion_profile=" + profile.name +
+                                          "&visibility=excluded";
+                return profile;
+            });
+        });
 
         $scope.refreshExclusionProfileList = function() {
             // this is a bit brute force for some circumstances.  But the list
@@ -195,16 +186,15 @@ exclusionEditorApp.controller('ExclusionEditorCtrl', [
 
         // Init the exclusion change form
         $scope.init_exclusion_update = function(exclusion) {
-            console.log("init_exclusion_update");
             $scope.form_exclusion = exclusion;
 
             // todo: remove this once we've migrated.
             // this is temporary while we migrate from the old form of
             // job exclusions to this new form.
-            if ($scope.form_exclusion.info.options) {
-                $scope.form_exclusion.info.option_collections = $scope.form_exclusion.info.options;
-                delete $scope.form_exclusion.info.options;
-            }
+            // if ($scope.form_exclusion.info.options) {
+            //     $scope.form_exclusion.info.option_collections = $scope.form_exclusion.info.options;
+            //     delete $scope.form_exclusion.info.options;
+            // }
             angular.forEach(['platforms', 'job_types', 'option_collections', 'repos'], function(elem) {
                 // assign to the left selection the remaining items
                 $scope['form_'+ elem] = _.difference(
@@ -213,9 +203,7 @@ exclusionEditorApp.controller('ExclusionEditorCtrl', [
                 );
 
             });
-            console.log("switch view start");
             $scope.switchView('job_exclusion_add');
-            console.log("done switch view");
         };
 
         $scope.exclusion_field = "repos";

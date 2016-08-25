@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html ng-app="exclusioneditor">
+<html ng-app="hideherder">
 <head>
     <meta charset="utf-8">
-    <title>Exclusionherder</title>
-    <!-- build:css css/perf.min.css -->
+    <title>Hideherder</title>
+    <!-- build:css css/hideherder.min.css -->
     <link href="vendor/css/bootstrap.css" rel="stylesheet" media="screen">
     <link href="vendor/css/font-awesome.css" rel="stylesheet" media="screen">
     <link href="css/treeherder-navbar.css" rel="stylesheet" media="screen">
     <link href="vendor/css/persona-buttons.css" rel="stylesheet" media="screen">
-    <link href="css/exclusioneditor.css" rel="stylesheet" media="screen">
+    <link href="hideherder/hide.css" rel="stylesheet" media="screen">
     <!-- endbuild -->
-    <link id="favicon" type="image/png" rel="shortcut icon" href="img/favicon-eye.ico">
+    <link id="favicon" type="image/png" rel="shortcut icon" href="img/favicon-eye-slash.ico">
     <style>
     </style>
 </head>
-<body ng-controller="ExclusionEditorCtrl">
+<body ng-controller="HideEditorCtrl">
   <nav id="th-global-navbar" class="navbar navbar-inverse" role="navigation">
     <div id="th-global-navbar-top" class="navbar navbar-collapse">
       <span class="dropdown">
         <button id="th-logo"
                 title="Treeherder services" role="button"
                 class="btn btn-view-nav"
-                data-toggle="dropdown" data-target="#">Exclusionherder
+                data-toggle="dropdown" data-target="#">Hideherder
           <span class="fa fa-angle-down lightgray"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
@@ -57,7 +57,7 @@
   <script src="js/config/local.conf.js"></script>
   <!-- endbuild -->
 
-  <!-- build:js js/exclusion.min.js -->
+  <!-- build:js js/hideherder.min.js -->
   <script src="vendor/jquery-2.1.3.js"></script>
   <script src="vendor/lodash.min.js"></script>
   <script src="vendor/angular/angular.js"></script>
@@ -75,7 +75,6 @@
   <script src="js/providers.js"></script>
   <script src="js/values.js"></script>
   <script src="js/filters.js"></script>
-  <script src="js/models/option_collection.js"></script>
   <script src="js/services/main.js"></script>
   <script src="js/services/log.js"></script>
   <script src="js/services/jsonpushes.js"></script>
@@ -90,9 +89,10 @@
   <script src="js/models/resultset.js"></script>
   <script src="js/models/user.js"></script>
   <script src="js/directives/treeherder/persona.js"></script>
-  <script src="js/exclusioneditor.js"></script>
-  <script src="js/controllers/exclusioneditor.js"></script>
+  <script src="js/directives/treeherder/main.js"></script>
   <script src="js/filters.js"></script>
+  <script src="hideherder/hideherder_app.js"></script>
+  <script src="hideherder/hideherder_ctrl.js"></script>
   <!-- endbuild -->
 
   <script src="https://login.persona.org/include.js"></script>

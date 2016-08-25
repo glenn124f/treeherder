@@ -71,13 +71,11 @@
   white-space: nowrap;
 }
 
-
 .th-multi-select input[type=text] {
   width: 100%;
 }
 
 .th-multi-select select {
-  /*width: 250px;*/
   font-size: 12px;
 }
 
@@ -99,20 +97,17 @@
 }
 
 .form-group-side select {
-  /*height: auto;*/
-  /*overflow: visible;*/
+  min-height: 100%;
   min-width: 100%;
   border: none;
 }
 .btn-move {
-  margin: 5px;
+  margin: 165px 5px 5px 5px;
 }
 
 .form-group-inline {
   display: flex;
   width: 100%;
-  /*flex-wrap: nowrap;*/
-
 }
 
 .form-group-inline > .form-group {
