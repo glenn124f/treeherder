@@ -23,15 +23,19 @@ exclusionEditorApp.controller('ExclusionEditorCtrl', [
                     $scope.exclusions_map = _.indexBy($scope.exclusions, 'id');
                 });
                 ThExclusionProfileModel.get_list({}, false).then(function (data) {
-                    $scope.profiles = data;
+                    $scope.profiles = _.map(data, function(profile) {
+                        profile.showExcludedUrl = $scope.urlBasePath +
+                                                  "?repo=" + $scope.repoName +
+                                                  "&exclusion_profile=" + profile.name +
+                                                  "&visibility=excluded";
+                        return profile;
+                    });
                 });
                 $scope.initComplete = true;
             }
         };
 
-        $scope.user = {is_staff: true};
         init();
-
 
         $scope.refreshExclusionProfileList = function() {
             // this is a bit brute force for some circumstances.  But the list
@@ -77,6 +81,7 @@ exclusionEditorApp.controller('ExclusionEditorCtrl', [
         $scope.master_job_types = [];
         ThJobTypeModel.get_list()
             .then(function(data) {
+                data = data.slice(data.length - 200);
                 for (var i = 0; i < data.length; i++) {
                     $scope.master_job_types.push(
                         getJobComboField(data[i].name, data[i].symbol)
@@ -191,23 +196,23 @@ exclusionEditorApp.controller('ExclusionEditorCtrl', [
         // Init the exclusion change form
         $scope.init_exclusion_update = function(exclusion) {
             console.log("init_exclusion_update");
-            // $scope.form_exclusion = exclusion;
+            $scope.form_exclusion = exclusion;
 
             // todo: remove this once we've migrated.
             // this is temporary while we migrate from the old form of
             // job exclusions to this new form.
-            // if ($scope.form_exclusion.info.options) {
-            //     $scope.form_exclusion.info.option_collections = $scope.form_exclusion.info.options;
-            //     delete $scope.form_exclusion.info.options;
-            // }
-            // angular.forEach(['platforms', 'job_types', 'option_collections', 'repos'], function(elem) {
-            //     // assign to the left selection the remaining items
-            //     $scope['form_'+ elem] = _.difference(
-            //         $scope['master_'+ elem], // this is the whole list
-            //         $scope.form_exclusion.info[elem] // this is what we got
-            //     );
-            //
-            // });
+            if ($scope.form_exclusion.info.options) {
+                $scope.form_exclusion.info.option_collections = $scope.form_exclusion.info.options;
+                delete $scope.form_exclusion.info.options;
+            }
+            angular.forEach(['platforms', 'job_types', 'option_collections', 'repos'], function(elem) {
+                // assign to the left selection the remaining items
+                $scope['form_'+ elem] = _.difference(
+                    $scope['master_'+ elem], // this is the whole list
+                    $scope.form_exclusion.info[elem] // this is what we got
+                );
+
+            });
             console.log("switch view start");
             $scope.switchView('job_exclusion_add');
             console.log("done switch view");

@@ -312,28 +312,6 @@ input:focus::-moz-placeholder {
   border-bottom: 1px dotted lightgrey;
 }
 
-.th-multi-select input[type=text] {
-  width: 534px;
-}
-
-.th-multi-select select {
-  width: 250px;
-  font-size: 12px;
-}
-
-.th-multi-select button {
-  width: 30px;
-}
-
-.form-group {
-  margin-bottom: 5px;
-}
-
-.form-group-inline > .form-group {
-  display: inline-block;
-  vertical-align: top;
-}
-
 /*
  * Notifications
  *

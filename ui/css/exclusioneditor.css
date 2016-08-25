@@ -1,3 +1,8 @@
+.exclusion-editor-main {
+  overflow-y: auto;
+  height: 93%;
+}
+
 .add-new-exclusion input.ng-invalid.ng-dirty {
     border-color: #B94A48;
 }
@@ -64,4 +69,52 @@
 .sheriff-panel-job-exclusions-row td:first-child > button {
   /* Handle long exclusion names within the button */
   white-space: nowrap;
+}
+
+
+.th-multi-select input[type=text] {
+  width: 100%;
+}
+
+.th-multi-select select {
+  /*width: 250px;*/
+  font-size: 12px;
+}
+
+.th-multi-select button {
+  width: 30px;
+}
+
+.form-group {
+  margin-bottom: 5px;
+  /*flex: 1 1 auto;*/
+}
+
+.form-group-side {
+  flex: 1 1 auto;
+  margin-bottom: 5px;
+  width: 45%;
+  height: 400px;
+  overflow: auto;
+}
+
+.form-group-side select {
+  /*height: auto;*/
+  /*overflow: visible;*/
+  min-width: 100%;
+  border: none;
+}
+.btn-move {
+  margin: 5px;
+}
+
+.form-group-inline {
+  display: flex;
+  width: 100%;
+  /*flex-wrap: nowrap;*/
+
+}
+
+.form-group-inline > .form-group {
+  vertical-align: top;
 }

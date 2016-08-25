@@ -1,0 +1,96 @@
+  <!-- Exclusion profiles -->
+  <div ng-if="view != 'exclusion_profile_add'"
+       class="th-inline-option-group exclusion-container">
+    <p ng-if="profiles.length == 0">No profile available</p>
+    <table ng-if="profiles.length > 0" class="table table-condensed">
+      <tr>
+        <th>Profile</th><th></th><th>Excluded</th><th></th>
+      </tr>
+      <tr ng-repeat="profile in profiles"
+          class="sheriff-panel-exclusion-profiles-row">
+        <td>
+          <!-- Profile name button -->
+          <button ng-click="init_profile_update(profile)"
+                  ng-disabled="!user.is_staff"
+                  class="sheriff-panel-btn pointable"
+                  ng-class="!user.is_staff ? 'sheriff-panel-text-btn-disabled' :
+                           'sheriff-panel-text-btn'"
+                  ng-attr-title="{{!user.is_staff ? '' : 'Change the members in this profile'}}">
+            {{::profile.name}}
+          </button>
+        </td>
+        <td class="text-center">
+          <!-- Default profile button -->
+          <button ng-click="set_default_profile(profile)"
+                  ng-disabled="!user.is_staff"
+                  ng-hide="!profile.is_default && !user.is_staff"
+                  ng-class="profile.is_default ? 'fa-check-circle text-success' :
+                           'fa-circle-o xlightgray'"
+                  class="fa sheriff-panel-btn pointable"
+                  ng-attr-title="{{profile.is_default ? 'Default profile' :
+                                 'Set this as the default profile'}}">
+          </button>
+        </td>
+        <td>
+          <!-- Exclusion names buttons -->
+          <button ng-click="init_exclusion_update(exclusions_map[exclusion])"
+                  ng-repeat="exclusion in profile.exclusions"
+                  ng-disabled="!user.is_staff"
+                  class="th-inline-option-group sheriff-panel-btn sheriff-panel-excluded-job pointable"
+                  ng-class="!user.is_staff ? 'sheriff-panel-text-btn-disabled' :
+                           'sheriff-panel-text-btn'"
+                  ng-attr-title="{{!user.is_staff ? '' : 'Modify this exclusion'}}">
+            &#8226; {{::exclusions_map[exclusion].name}}</button>
+        </td>
+        <td>
+          <!-- Delete profile button -->
+          <button ng-click="delete_profile(profile)"
+                  ng-if="user.is_staff"
+                  class="sheriff-panel-btn sheriff-panel-delete-icon hover-warning pointable"
+                  title="Delete this profile">
+            <i class="fa fa-times-circle"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+    <button ng-click="init_profile_add()" type="button"
+            ng-disabled="!user.is_staff"
+            ng-attr-title="{{!user.is_staff ? 'Sheriff permissions required' : ''}}"
+            class="btn btn-sm btn-primary">Add profile</button>
+  </div>
+
+  <!-- Add/Update exclusion profile -->
+  <div ng-if="view == 'exclusion_profile_add'"
+       class="panel panel-default th-inline-option-group add-new-exclusion">
+    <div class="panel-heading th-option-heading">
+      Add/Update exclusion profile
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label>Name</label>
+        <input class="form-control input-sm" type="text"
+               ng-model="form_profile.name" placeholder="Enter a name"/>
+      </div>
+      <form class="form">
+        <label>Select one or more exclusions to enable in your new profile</label>
+        <div ng-repeat="exclusion in exclusions" class="form-group">
+          <input type="checkbox" ng-model="form_profile_choices[exclusion.id]" />
+          <span title="{{::exclusion.description}}">{{::exclusion.name}}</span>
+        </div>
+      </form>
+      <div class="form-group-inline">
+        <div class="form-group">
+          <a ng-click="switchView('exclusion_profile_list')"
+             class="btn btn-sm btn-default pull right">Back</a>
+        </div>
+        <div class="form-group">
+          <button ng-click="reset_profile()" type="submit"
+                  class="btn btn-sm btn-danger pull right">Reset</button>
+        </div>
+        <div class="form-group">
+          <button ng-click="save_profile(form_profile)" type="submit"
+                  class="btn btn-sm btn-success pull right">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>

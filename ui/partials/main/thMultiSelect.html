@@ -4,8 +4,8 @@
   </div>
 
   <div class="form-group-inline">
-    <div class="form-group">
-      <select class="form-control" multiple ng-model="leftSelected">
+    <div class="form-group-side form-control">
+      <select class="" size=25 multiple ng-model="leftSelected">
         <option value="{{ ::left_elem }}"
                 ng-repeat="left_elem in leftList"
                 ng-show="([left_elem] | filter:query).length">
@@ -14,7 +14,7 @@
       </select>
     </div>
 
-    <div class="btn-group-vertical ">
+    <div class="btn-group-vertical btn-move">
       <button ng-click="move_left()"
               type="button"
               class="btn btn-xs btn-default">
@@ -26,8 +26,8 @@
       </button>
     </div>
 
-    <div class="form-group">
-      <select class="form-control" ng-model="rightSelected" multiple>
+    <div class="form-group-side form-control">
+      <select class="" ng-model="rightSelected" multiple>
         <option value="{{ ::right_elem }}"
                 ng-repeat="right_elem in rightList">
           {{ ::right_elem }}
